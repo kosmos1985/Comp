@@ -19,7 +19,21 @@
         </agm-info-window>
         </agm-marker>
       </agm-map>
-
+      <div class="header">
+        <div class="row row justify-content-md-center">
+          
+            <div class="col-md-auto">
+              <button type="button" class="btn btn-primary">Show all cars</button>
+            </div>
+            <div class="col-md-auto">
+              <button type="button" class="btn btn-success">Show available cars</button>
+            </div>
+            <div class="col-md-auto">
+              <button type="button" class="btn btn-warning">Show unavailable cars</button>
+            </div>
+          
+        </div>
+    </div>
   <ul *ngFor="let object of objects">
     <li>{{object.id}}</li>
   </ul>
