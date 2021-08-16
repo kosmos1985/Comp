@@ -1,14 +1,36 @@
 <div class="container">
 
-  <h1>{{ title }}</h1>
-
+    <div class="header">
+      <h1>{{ title }}</h1>
+    </div>
   <!-- this creates a google map on the page with the given lat/lng from -->
   <!-- the component as the initial center of the map: -->
-  <agm-map [latitude]="lat" [longitude]="lng">
-    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-  </agm-map>
-  
+      <agm-map 
+      [latitude]="lat" 
+      [longitude]="lng"
+      >
+        <agm-marker 
+        *ngFor="let marker of markers; let i=index"
+        [latitude]="marker.lat" 
+        [longitude]="marker.lng"
+        >
+        <agm-info-window>
+          <strong>{{marker.name}}</strong>
+        </agm-info-window>
+        </agm-marker>
+      </agm-map>
+
   <ul *ngFor="let object of objects">
     <li>{{object.id}}</li>
   </ul>
 </div>
+
+
+<!-- [zoomControl]="false"
+(mapClick)="mapClicked($event)"
+  [markerDraggable]="marker.draggable"
+  (dragEnd)="markerDragEnd(marker, $event)"
+   [zoom]="zoom"
+   [disableDefaultUI]="false"
+   (markerClicke)="clickedMarker(marker,i)"
+-->
