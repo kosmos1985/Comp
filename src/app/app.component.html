@@ -1,6 +1,6 @@
 <div class="container">
 
-    <div class="header">
+    <div class="red">
       <h1>{{ title }}</h1>
     </div>
   <!-- this creates a google map on the page with the given lat/lng from -->
@@ -8,18 +8,29 @@
       <agm-map 
       [latitude]="lat" 
       [longitude]="lng"
+      [zoom]="zoom"
+      [disableDefaultUI]="false"
+      [zoomControl]="false">
       >
+      <agm-marker-cluster 
+      imagePath="https://raw.githubusercontent.com/googlearchive/js-marker-clusterer/gh-pages/images/m">
+    
         <agm-marker 
         *ngFor="let marker of markers; let i=index"
         [latitude]="marker.lat" 
         [longitude]="marker.lng"
+        [label]="marker.name"
+        [markerDraggable]="marker.draggable">
         >
         <agm-info-window>
           <strong>{{marker.name}}</strong>
         </agm-info-window>
         </agm-marker>
+
+      </agm-marker-cluster>
       </agm-map>
-      <div class="header">
+
+      <div class="red">
         <div class="row row justify-content-md-center">
           
             <div class="col-md-auto">
@@ -34,6 +45,7 @@
           
         </div>
     </div>
+    
   <ul *ngFor="let object of objects">
     <li>{{object.id}}</li>
   </ul>
