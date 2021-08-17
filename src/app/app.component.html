@@ -20,18 +20,46 @@
         [latitude]="marker.lat" 
         [longitude]="marker.lng"
         [label]="marker.name"
-        [markerDraggable]="marker.draggable">
+        [markerDraggable]="marker.draggable"
+        [visible]="marker.category != field_data"
+        (click)="openDialog(marker,i)"
         >
+        
         <agm-info-window>
           <strong>{{marker.name}}</strong>
         </agm-info-window>
         </agm-marker>
 
       </agm-marker-cluster>
+     
       </agm-map>
 
       <div class="red">
-        <div class="row row justify-content-md-center">
+        <select class="form-select" name="select" [(ngModel)]="field_data.select" (click)="showSelect()">
+          <option selected>Please select category</option>
+          <option>all</option>
+          <option>available</option>
+          <option>unavailable</option>
+        </select>
+  </div>
+  
+<!--   
+  <ul *ngFor="let object of objects">
+    <li>{{object.id}}</li>
+  </ul>
+</div> -->
+
+
+<!-- [zoomControl]="false"
+(mapClick)="mapClicked($event)"
+  [markerDraggable]="marker.draggable"
+  (dragEnd)="markerDragEnd(marker, $event)"
+   [zoom]="zoom"
+   [disableDefaultUI]="false"
+   (markerClicke)="clickedMarker(marker,i)"
+-->
+
+      <!-- <div class="row row justify-content-md-center">
           
             <div class="col-md-auto">
               <button type="button" class="btn btn-primary">Show all cars</button>
@@ -43,20 +71,4 @@
               <button type="button" class="btn btn-warning">Show unavailable cars</button>
             </div>
           
-        </div>
-    </div>
-    
-  <ul *ngFor="let object of objects">
-    <li>{{object.id}}</li>
-  </ul>
-</div>
-
-
-<!-- [zoomControl]="false"
-(mapClick)="mapClicked($event)"
-  [markerDraggable]="marker.draggable"
-  (dragEnd)="markerDragEnd(marker, $event)"
-   [zoom]="zoom"
-   [disableDefaultUI]="false"
-   (markerClicke)="clickedMarker(marker,i)"
--->
+        </div> -->

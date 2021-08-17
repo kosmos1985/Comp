@@ -2,8 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { VehicleService } from './services/vehicle.service';
 import { Marker } from './models/marker';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DesctriptionComponent } from './components/desctription/desctription.component';
 
-@Component({
+@Component({ 
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -16,6 +18,11 @@ export class AppComponent implements OnInit, OnDestroy{
   // Start position
   lat = 	53.123482;
   lng = 18.008438;
+
+// Select option
+  field_data = {
+    select: 'Please select category',
+  }
   
   // Markers
   markers: Marker[] = [
@@ -24,24 +31,27 @@ export class AppComponent implements OnInit, OnDestroy{
       lat: 53.123490,
       lng: 18.008440,
       draggable: true,
+      category:'avaliable'
     },
     {
       name: 'Renault Clio',
       lat: 53.125490,
       lng: 18.018440,
       draggable: true,
+      category:'unavaliable'
     },
     {
       name: 'Ford Mustang',
       lat: 53.125690,
       lng: 18.018840,
       draggable: false,
+      category:'avaliable'
     },
   ];
 
   objects ;
   private subscription = new Subscription();
-  constructor(private http: VehicleService) { }
+  constructor(private http: VehicleService,public dialog: MatDialog) { }
 
 
   // clickedMarker(marker:Marker,i:number) {
@@ -72,6 +82,28 @@ export class AppComponent implements OnInit, OnDestroy{
   //   const newLng = $event.coords.lng;
 
   // };
+
+  // Function to filter markers by category
+ 
+
+// filterMarkers(value) {
+//   for (this.markers) {
+//     // markers = gmarkers[i];
+//     // // If is same category or category not picked
+//     if (this.markers.category == value || value.length === 0) {
+//       this.markers.setVisible(false);
+//     }
+//     // Categories don't match 
+//     else {
+//       this.markers.setVisible(true);
+//     }
+//   }
+// }
+showSelect() {
+   console.log(this.field_data.select);
+   
+}
+
   
   ngOnInit(): any {
     const sub1 = this.http.getObjects().subscribe(objs => {
@@ -82,6 +114,14 @@ export class AppComponent implements OnInit, OnDestroy{
     );
     this.subscription.add(sub1);
   };
+
+  openDialog(marker: any,i:any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = [{ data: marker },{indexmarker:i}];
+
+    this.dialog.open(DesctriptionComponent, dialogConfig);
+  };
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   };
