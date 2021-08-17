@@ -11,27 +11,26 @@
       [zoom]="zoom"
       [disableDefaultUI]="false"
       [zoomControl]="false">
-      >
+      
       <agm-marker-cluster 
       imagePath="https://raw.githubusercontent.com/googlearchive/js-marker-clusterer/gh-pages/images/m">
     
-        <agm-marker 
-        *ngFor="let marker of markers; let i=index"
-        [latitude]="marker.lat" 
-        [longitude]="marker.lng"
-        [label]="marker.name"
-        [markerDraggable]="marker.draggable"
-        [visible]="marker.category != field_data"
-        (click)="openDialog(marker,i)"
-        >
+            <agm-marker 
+            *ngFor="let marker of markers; let i=index"
+            [latitude]="marker.lat" 
+            [longitude]="marker.lng"
+            [label]="marker.name"
+            [markerDraggable]="marker.draggable"
+            [visible]="marker.category != field_data"
+            >
+      
         
         <agm-info-window>
-          <strong>{{marker.name}}</strong>
+          <button mat-button (click)="openDialog(marker,i)">{{marker.name}}</button>       
         </agm-info-window>
         </agm-marker>
 
       </agm-marker-cluster>
-     
       </agm-map>
 
       <div class="red">
