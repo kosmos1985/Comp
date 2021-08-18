@@ -20,13 +20,17 @@ export class AppComponent implements OnInit, OnDestroy{
   lng = 20.9304286193480;
  
 
-// Select option
-  field_data = {
-    select: 'Please select category',
-  }
+
+
+// // Select option
+//   field_data = {
+//     select: 'Please select category',
+//   }
   
   
-  objects: Object[]=[] ;
+  objects: Object[] = [];
+  
+ 
   private subscription = new Subscription();
   constructor(private http: VehicleService,public dialog: MatDialog) { }
 

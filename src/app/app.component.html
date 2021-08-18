@@ -10,7 +10,8 @@
       [longitude]="lng"
       [zoom]="zoom"
       [disableDefaultUI]="false"
-      [zoomControl]="false">
+      [zoomControl]="false"
+      >
       
       <agm-marker-cluster 
       imagePath="https://raw.githubusercontent.com/googlearchive/js-marker-clusterer/gh-pages/images/m">
@@ -20,7 +21,6 @@
             [latitude]="obj.location.latitude" 
             [longitude]="obj.location.longitude"
             [label]="obj.name"
-            [visible]="obj.status != field_data"
             >
       
         
