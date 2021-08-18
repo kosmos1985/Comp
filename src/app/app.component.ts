@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { VehicleService } from './services/vehicle.service';
-import { Marker } from './models/marker';
+import { Object } from './models/object';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DesctriptionComponent } from './components/desctription/desctription.component';
 
@@ -16,8 +16,9 @@ export class AppComponent implements OnInit, OnDestroy{
   zoom: number = 10;
 
   // Start position
-  lat = 	53.123482;
-  lng = 18.008438;
+  lat = 	52.1935161702220;
+  lng = 20.9304286193480;
+ 
 
 // Select option
   field_data = {
@@ -25,31 +26,9 @@ export class AppComponent implements OnInit, OnDestroy{
   }
   
   // Markers
-  markers: Marker[] = [
-    {
-      name: 'Opel Kadet',
-      lat: 53.123490,
-      lng: 18.008440,
-      draggable: true,
-      category:'avaliable'
-    },
-    {
-      name: 'Renault Clio',
-      lat: 53.125490,
-      lng: 18.018440,
-      draggable: true,
-      category:'unavaliable'
-    },
-    {
-      name: 'Ford Mustang',
-      lat: 53.125690,
-      lng: 18.018840,
-      draggable: false,
-      category:'avaliable'
-    },
-  ];
 
-  objects ;
+
+  objects: Object[]=[] ;
   private subscription = new Subscription();
   constructor(private http: VehicleService,public dialog: MatDialog) { }
 
@@ -107,7 +86,7 @@ showSelect() {
   
   ngOnInit(): any {
     const sub1 = this.http.getObjects().subscribe(objs => {
-      this.objects = objs;
+      this.objects = objs['objects'];
       console.log(this.objects);
     }, error => console.error(error),
       () => console.log('Complite')
@@ -115,9 +94,9 @@ showSelect() {
     this.subscription.add(sub1);
   };
 
-  openDialog(marker: any,i:any) {
+  openDialog(obj: any,i:any) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = [{ data: marker },{indexmarker:i}];
+    dialogConfig.data = [{ data: obj },{indexobj:i}];
 
     this.dialog.open(DesctriptionComponent, dialogConfig);
   };
