@@ -31,17 +31,30 @@
 
       </agm-marker-cluster>
       </agm-map>
-
       <div class="red">
+        <div class="row row justify-content-md-center">
+          
+            <div class="col-md-auto">
+              <button type="button" class="btn btn-primary" (click)="showAllCars()">Show all cars</button>
+            </div>
+            <div class="col-md-auto">
+              <button type="button" class="btn btn-success" (click)="hideTrucks()">Hide trucks</button>
+            </div>
+            <div class="col-md-auto">
+              <button type="button" class="btn btn-warning" (click)="hideCars()">Hide Cars</button>
+            </div>
+          
+        </div>
+      </div>
+</div>  
+  <!-- <div class="red">
         <select class="form-select" name="select" [(ngModel)]="field_data.select" (click)="showSelect()">
           <option selected>Please select category</option>
           <option>all</option>
           <option>available</option>
           <option>unavailable</option>
         </select>
-  </div>
-  
-
+      </div>-->
 
       <!-- <div class="row row justify-content-md-center">
           
