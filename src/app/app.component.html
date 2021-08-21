@@ -53,7 +53,7 @@
       <div class="searchbox">
         <form>
           <mat-form-field class="example-full-width">
-              <input type="text" placeholder="Search Cars" matInput 
+              <input type="text" placeholder="Search Car" matInput 
                   [formControl]="contactAutocompleteControl" [matAutocomplete]="auto">
               <mat-autocomplete  #auto="matAutocomplete" [displayWith]="displayCarsFn">
                 <mat-option *ngFor="let object of filteredObjectsOptions | async" [value]="object">
