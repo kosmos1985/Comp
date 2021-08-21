@@ -33,15 +33,6 @@ export class AppComponent implements OnInit, OnDestroy{
   lat = 	52.1935161702220;
   lng = 20.9304286193480;
  
-
-
-
-// // Select option
-//   field_data = {
-//     select: 'Please select category',
-//   }
-  
-  
   objects: Object[] = [];
   
  
@@ -62,7 +53,7 @@ public validation_msgs = {
   ngOnInit(): any {
     const sub1 = this.http.getObjects().subscribe(objs => {
       this.objects = objs['objects'];
-      console.log(this.objects);
+      // console.log(this.objects);
     }, error => console.error(error),
       () => console.log('Complite')
     );
@@ -77,7 +68,6 @@ public validation_msgs = {
 
 
   showAllCars(): void {
-    
     const sub2 = this.http.getObjects().subscribe(objs => {
       this.objects = objs['objects'];
       console.log(this.objects);
@@ -88,12 +78,9 @@ public validation_msgs = {
 
   };
 
-
   hideCars(): void {
     this.objects =[];
   };
-
-
 
 openDialog(obj: any,i:any) {
     const dialogConfig = new MatDialogConfig();
@@ -116,7 +103,7 @@ private _filterObjects(name: string): Object[] {
 }
 
 
-  addCar(value: Object) {
+addCar(value: Object) {
     console.log(value);
     this.objects =[];
     this.objects.push(value);

@@ -22,19 +22,22 @@
             [longitude]="obj.location.longitude"
             [label]="obj.name"
             >
-      
         
         <agm-info-window>
-          <button mat-button (click)="openDialog(obj,i)">{{obj.name}}</button>       
+          <button mat-button (click)="openDialog(obj,i)">{{obj.name}}</button>
+          <ng-container *ngIf="obj.batteryLevelPct > 90; else other_style"> 
+            <div class="full"><b>Battery Level Percent: </b>{{obj.batteryLevelPct}}</div>
+          </ng-container>
+          <ng-template #other_style>
+            <div class="middle"><b>Battery Level Percent: </b>{{obj.batteryLevelPct}}</div>
+          </ng-template>     
         </agm-info-window>
         </agm-marker>
 
       </agm-marker-cluster>
       </agm-map>
-
       
-
-      <div class="red">
+     <div class="red">
         <div class="row row justify-content-md-center">
           
             <div class="col-md-auto">
@@ -42,7 +45,7 @@
             </div>
           
             <div class="col-md-auto">
-              <button type="button" class="btn btn-warning" (click)="hideCars()">Hide Cars</button>
+              <button type="button" class="btn btn-warning" (click)="hideCars()">Hide all Cars</button>
             </div>
           
         </div>
@@ -65,7 +68,7 @@
               </mat-error>
             </mat-form-field>  
         </form>
-        <button mat-button class="btn btn-info" (click)="addCar(contactAutocompleteControl.value)">Show this car</button>
+        <button mat-button class="btn btn-info" (click)="addCar(contactAutocompleteControl.value)">Show only one car</button>
       </div>
 </div>  
   
