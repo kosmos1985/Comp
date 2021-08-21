@@ -20,7 +20,7 @@
             *ngFor="let obj of objects; let i=index"
             [latitude]="obj.location.latitude" 
             [longitude]="obj.location.longitude"
-            [label]="obj.name"
+            [label]="{color:'blue', fontSize: '14px', fontWeight: 'bold', text:obj.status}"
             >
         
         <agm-info-window>
@@ -68,7 +68,7 @@
               </mat-error>
             </mat-form-field>  
         </form>
-        <button mat-button class="btn btn-info" (click)="addCar(contactAutocompleteControl.value)">Show only one car</button>
+        <button mat-button class="btn btn-info" (click)="addCar(contactAutocompleteControl.value)">Show selected car</button>
       </div>
 </div>  
   

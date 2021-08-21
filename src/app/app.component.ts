@@ -32,6 +32,7 @@ export class AppComponent implements OnInit, OnDestroy{
   // Start position
   lat = 	52.1935161702220;
   lng = 20.9304286193480;
+
  
   objects: Object[] = [];
   
