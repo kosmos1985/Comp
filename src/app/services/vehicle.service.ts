@@ -16,11 +16,13 @@ const headers = new HttpHeaders().append( 'Authorization', KEY + AUTH_TOCKEN)
 })
 export class VehicleService {
 
+
   constructor(private http: HttpClient) { }
  
   getObjects() {
     return this.http.get<Object[]>(`${BASE_URL}`, { 'headers': headers });
-  }
+  };
+
 
 }
 

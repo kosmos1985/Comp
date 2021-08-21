@@ -1,14 +1,28 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { VehicleService } from './services/vehicle.service';
 import { Object } from './models/object';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { DesctriptionComponent } from './components/desctription/desctription.component';
+
+
+  
+function autocompleteObjectValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    if (typeof control.value === 'string') {
+      return { 'invalidAutocompleteObject': { value: control.value } }
+    }
+    return null  /* valid option selected */
+  }
+};
+
 
 @Component({ 
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy{
   title = 'Comp';
@@ -32,7 +46,18 @@ export class AppComponent implements OnInit, OnDestroy{
   
  
   private subscription = new Subscription();
-  constructor(private http: VehicleService,public dialog: MatDialog) { }
+  public filteredObjectsOptions: Observable<Object[]>
+  constructor(private http: VehicleService, public dialog: MatDialog) { }
+  
+  public contactAutocompleteControl = new FormControl('', 
+  { validators: [autocompleteObjectValidator(), Validators.required] })
+
+public validation_msgs = {
+  'contactAutocompleteControl': [
+    { type: 'invalidAutocompleteObject', message: 'Car name not recognized. Click one of the autocomplete options.' },
+    { type: 'required', message: 'Car name is required.' }
+  ]
+};
 
   ngOnInit(): any {
     const sub1 = this.http.getObjects().subscribe(objs => {
@@ -42,6 +67,12 @@ export class AppComponent implements OnInit, OnDestroy{
       () => console.log('Complite')
     );
     this.subscription.add(sub1);
+
+    this.filteredObjectsOptions = this.contactAutocompleteControl.valueChanges.pipe(
+      startWith(''),
+      map(value => typeof value === 'string' ? value : value.name),
+      map(name => name ? this._filterObjects(name) : this.objects.slice())
+    )
 };
 
 
@@ -57,13 +88,6 @@ export class AppComponent implements OnInit, OnDestroy{
 
   };
 
-  hideTrucks(): void {
-    if (this.objects.filter(obj=> obj.type == 'TRUCK')) {
-      console.log(this.objects);
-      
-    }
-    
-  };
 
   hideCars(): void {
     this.objects =[];
@@ -78,6 +102,26 @@ openDialog(obj: any,i:any) {
     this.dialog.open(DesctriptionComponent, dialogConfig);
 };
 
+private _filterObjects(name: string): Object[] {
+  if (name === '') {
+    return this.objects.slice()
+  }
+  const filterValue = name.toLowerCase()
+  return this.objects.filter(option => option.name.toLowerCase().includes(filterValue))
+};
+  public displayCarsFn(object: Object): string | undefined {
+
+  
+  return object && object ? object.name : undefined
+}
+
+
+  addCar(value: Object) {
+    console.log(value);
+    this.objects =[];
+    this.objects.push(value);
+};
+  
 ngOnDestroy() {
     this.subscription.unsubscribe();
   };
