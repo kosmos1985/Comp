@@ -71,7 +71,6 @@ ngOnInit(): any {
 showAllCars(): void {
     const sub2 = this.http.getObjects().subscribe(objs => {
       this.objects = objs['objects'];
-      console.log(this.objects);
     }, error => console.error(error),
       () => console.log('Complite')
     );
@@ -105,7 +104,6 @@ public displayCarsFn(object: Object): string | undefined {
 
 
 addCar(value: Object) {
-    console.log(value);
     this.objects =[];
     this.objects.push(value);
 };
