@@ -25,7 +25,7 @@ function autocompleteObjectValidator(): ValidatorFn {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy{
-  title = 'Comp';
+  
   // Zoom level
   zoom: number = 10;
 
@@ -33,7 +33,8 @@ export class AppComponent implements OnInit, OnDestroy{
   lat = 	52.1935161702220;
   lng = 20.9304286193480;
 
- 
+
+  //  Data
   objects: Object[] = [];
   
  
@@ -51,10 +52,9 @@ public validation_msgs = {
   ]
 };
 
-  ngOnInit(): any {
+ngOnInit(): any {
     const sub1 = this.http.getObjects().subscribe(objs => {
       this.objects = objs['objects'];
-      // console.log(this.objects);
     }, error => console.error(error),
       () => console.log('Complite')
     );
@@ -68,7 +68,7 @@ public validation_msgs = {
 };
 
 
-  showAllCars(): void {
+showAllCars(): void {
     const sub2 = this.http.getObjects().subscribe(objs => {
       this.objects = objs['objects'];
       console.log(this.objects);
@@ -77,11 +77,11 @@ public validation_msgs = {
     );
     this.subscription.add(sub2);
 
-  };
+};
 
-  hideCars(): void {
+hideCars(): void {
     this.objects =[];
-  };
+};
 
 openDialog(obj: any,i:any) {
     const dialogConfig = new MatDialogConfig();
@@ -97,11 +97,11 @@ private _filterObjects(name: string): Object[] {
   const filterValue = name.toLowerCase()
   return this.objects.filter(option => option.name.toLowerCase().includes(filterValue))
 };
-  public displayCarsFn(object: Object): string | undefined {
+public displayCarsFn(object: Object): string | undefined {
 
   
   return object && object ? object.name : undefined
-}
+};
 
 
 addCar(value: Object) {
